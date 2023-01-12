@@ -17,8 +17,9 @@ import mapclassify
 final_geo = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/final_geo.csv')
 df_2022_ml = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/df_2022_ml_st.csv')
 
-# Dashboard
+st.set_page_config(layout="wide")
 
+# Dashboard
 
 image_map_area = Image.open('Images/area_mean_map.png')
 image_map_area = image_map_area.resize((400, 400))
@@ -78,7 +79,7 @@ y_pred_test = dtr.predict(X_test_sca)
 tab1, tab2 = st.tabs(["Dashboard", "Machine Learning"])
 
 with tab1:
-    #st.title("")
+    st.title("Insights on the real estate market in Ile-de-France")
     col1,col2 = st.columns(2)
     with col1:
         st.subheader("Map of the Average Area")
