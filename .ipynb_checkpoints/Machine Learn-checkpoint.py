@@ -11,6 +11,8 @@ from sklearn.tree import DecisionTreeRegressor
 
 df_2022_ml = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/df_2022_ml_st.csv')
 
+image_house = Image.open('house_apt_picto.png')
+image_house = image_house.resize((150, 150))
 ##ML alg
 
 X = df_2022_ml[['Actual_built_surface','Nb_of_main_rooms','Apartment','House','75 - Paris','77 - Seine-et-Marne','78 - Yvelines', "91 - l'Essonne", '92 - Hauts-de-Seine','93 - Seine-Saint-Denis', '94 - Val-de-Marne', "95 - Val-d'Oise"]]
@@ -41,15 +43,23 @@ with tab1:
     
 with tab2:
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.title('Where is the best neighbourhood to invest?')
+    st.title("Find the price of your dream place")
     col1,col2 = st.columns(2)
     with col1:
         ### Insert Filter 
         #ChooseDep1 = st.selectbox('Choose your department:', df_2022_ml['Country'].unique(), 1)
-        ChooseDep1 = st.radio("Choose your department:",('75 - Paris','77 - Seine-et-Marne','78 - Yvelines',"91 - l'Essonne",'92 - Hauts-de-Seine','93 - Seine-Saint-Denis',
+        ChooseDep1 = st.radio("Which department do you want:",('75 - Paris','77 - Seine-et-Marne','78 - Yvelines',"91 - l'Essonne",'92 - Hauts-de-Seine','93 - Seine-Saint-Denis',
                                                                     '94 - Val-de-Marne', "95 - Val-d'Oise"))
+    with col2:
+        st.image(image_house)
+        ChooseType1 = st.radio("Which type of place do you want:",('Appartment','House'))
         
-        ChooseType1 = st.radio("Choose your department:",('Appartment','House'))
+    col1,col2 = st.columns(2)
+    with col1:
+        
+    with col2:
+        
+        
         
         Paris_75 = int(ChooseDep1=='75 - Paris')
         Seine_et_Marne_77 = int(ChooseDep1=='77 - Seine-et-Marne')
@@ -69,6 +79,6 @@ with tab2:
                        House,Actual_built_surface, Nb_of_main_rooms])
 
         newhouse_prediction = dtr.predict(np.array(X_list).reshape(1,-1))
-        newhouse_prediction = newhouse_prediction.style.format({'newhouse_prediction': ':.0f'})
+        #newhouse_prediction = newhouse_prediction.style.format({'newhouse_prediction': ':.0f'})
     with col2:
         st.write(f"This is the predicted price {newhouse_prediction}") 
