@@ -83,17 +83,17 @@ with tab1:
     #st.title("")
     col1,col2 = st.columns(2)
     with col1:
-        #st.title("")
+        st.subheader("Map of the Average Area")
         st.image(image_map_area)
     with col2:
-        #st.title("")
-        st.image(image_evolution_price)
+        st.subheader("Map of the Average Value")
+        st.image(image_map_value)
     col1,col2 = st.columns(2)
     with col1:
-        #st.title("")
-        st.image(image_map_value)
+        st.subheader("Evolution of price per square meter")
+        st.image(image_evolution_price)
     with col2:
-        #st.title("")
+        st.subheader("Transactions per year in each department")
         st.image(image_trans_depart)
     
     
