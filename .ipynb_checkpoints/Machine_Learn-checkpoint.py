@@ -8,7 +8,13 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor
+import geopandas as gpd
+import pandas as pd
+import matplotlib.pyplot as plt
+import mapclassify
+#import plotly.express as px
 
+final_geo = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/final_geo.csv')
 df_2022_ml = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/df_2022_ml_st.csv')
 
 image_house = Image.open('house_apt_picto.png')
@@ -48,16 +54,8 @@ y_pred = dtr.predict(X_test_scaled)
 tab1, tab2 = st.tabs(["Dashboard", "Machine Learning"])
 
 with tab1:
-    st.title('Île de France place finder')
     
     
-    
-    
-    
-    
-    
-    
-
     
 with tab2:
     st.set_option('deprecation.showPyplotGlobalUse', False)
