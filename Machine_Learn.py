@@ -38,15 +38,23 @@ y = df_2022_ml['Property_value']
 X_train, X_test, y_train, y_test = train_test_split(X, y,random_state=29, train_size = 0.75)
 
 # Create and fit a scaler model
-scaler = StandardScaler().fit(X)
+#scaler = StandardScaler().fit(X)
 # Your scaler model can now transform your data
-X_train_scaled = scaler.transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+#X_train_scaled = scaler.transform(X_train)
+#X_test_scaled = scaler.transform(X_test)
+#dtr = DecisionTreeRegressor(random_state= 39, min_samples_split = 7, min_samples_leaf= 46, max_depth = 12).fit(X_train_scaled, y_train)
+
+#y_pred = dtr.predict(X_test_scaled)
 
 
-dtr = DecisionTreeRegressor(random_state= 39, min_samples_split = 7, min_samples_leaf= 46, max_depth = 12).fit(X_train_scaled, y_train)
+scaler = StandardScaler()
+# Your scaler model can now transform your data
+X_train[['Actual_built_surface', 'Nb_of_main_rooms']] = scaler.fit_transform(X_train[['Actual_built_surface', 'Nb_of_main_rooms']])
+X_test[['Actual_built_surface', 'Nb_of_main_rooms']] = scaler.transform(X_test[['Actual_built_surface', 'Nb_of_main_rooms']])
 
-y_pred = dtr.predict(X_test_scaled)
+dtr = DecisionTreeRegressor(random_state= 39, min_samples_split = 7, min_samples_leaf= 46, max_depth = 12).fit(X_train, y_train)
+
+y_pred = dtr.predict(X_test)
 
 ## end alg
 
@@ -54,7 +62,7 @@ y_pred = dtr.predict(X_test_scaled)
 tab1, tab2 = st.tabs(["Dashboard", "Machine Learning"])
 
 with tab1:
-    
+    st.empty()
     
     
 with tab2:
@@ -91,10 +99,21 @@ with tab2:
         House = int(ChooseDep1=='House')
         
 
-        X_list = list([Paris_75,Seine_et_Marne_77,Yvelines_78,Essonne_91,Hauts_de_Seine_92,Seine_Saint_Denis_93,Val_de_Marne_94,Val_dOise_95, Apartment,
-                       House,Actual_built_surface, Nb_of_main_rooms])
-
-        newhouse_prediction = dtr.predict(np.array(X_list).reshape(1,-1)).astype(int)
+        #X_list = list([Paris_75,Seine_et_Marne_77,Yvelines_78,Essonne_91,Hauts_de_Seine_92,Seine_Saint_Denis_93,Val_de_Marne_94,Val_dOise_95, Apartment,
+         #              House,Actual_built_surface, Nb_of_main_rooms])
+        
+        #X_scaled_list = scaler.transform(np.array(X_list).reshape(1,-1))
+        #newhouse_prediction = dtr.predict(X_scaled_list).astype(int)
+        
+        
+        X_array = np.array([Paris_75,Seine_et_Marne_77,Yvelines_78,Essonne_91,Hauts_de_Seine_92,Seine_Saint_Denis_93,Val_de_Marne_94,Val_dOise_95, Apartment, House, Actual_built_surface, Nb_of_main_rooms]).reshape(1,12)
+                           
+        X_df = pd.DataFrame(X_array, columns=['Paris_75','Seine_et_Marne_77','Yvelines_78','Essonne_91','Hauts_de_Seine_92',
+                                              'Seine_Saint_Denis_93','Val_de_Marne_94','Val_dOise_95', 'Apartment', 'House', 'Actual_built_surface', 'Nb_of_main_rooms'])
+        
+        X_df[['Actual_built_surface','Nb_of_main_rooms']] = scaler.transform(X_df[['Actual_built_surface','Nb_of_main_rooms']])
+        newhouse_prediction = dtr.predict(np.array(X_df).reshape(1,-1)).astype(int)
+        
         
     if st.button('Click to see the price'):
         st.subheader('The price is:')
