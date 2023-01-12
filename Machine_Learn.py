@@ -17,9 +17,27 @@ import mapclassify
 final_geo = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/final_geo.csv')
 df_2022_ml = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/df_2022_ml_st.csv')
 
+# Dashboard
+
+
+image_map_area = Image.open('Images/area_mean_map.png')
+image_map_area = image_map_area.resize((400, 400))
+
+image_map_value = Image.open('Images/value_mean_map.png')
+image_map_value = image_map_value.resize((400, 400))
+
+image_evolution_price = Image.open('Images/evolution_price.png')
+image_evolution_price = image_evolution_price.resize((400, 400))
+
+image_trans_depart = Image.open('Images/trans_depart.png')
+image_trans_depart = image_trans_depart.resize((400, 400))
+
+
+# Machine Learning
+
+
 image_house = Image.open('house_apt_picto.png')
 image_house = image_house.resize((90, 80))
-
 
 image_geo = Image.open('geo.png')
 image_geo = image_geo.resize((90, 80))
@@ -54,7 +72,21 @@ y_pred = dtr.predict(X_test_scaled)
 tab1, tab2 = st.tabs(["Dashboard", "Machine Learning"])
 
 with tab1:
-    
+    #st.title("")
+    col1,col2 = st.columns(2)
+    with col1:
+        #st.title("")
+        st.image(image_map_area)
+    with col2:
+        #st.title("")
+        st.image(image_evolution_price)
+    col1,col2 = st.columns(2)
+    with col1:
+        #st.title("")
+        st.image(image_map_value)
+    with col2:
+        #st.title("")
+        st.image(image_trans_depart)
     
     
 with tab2:
