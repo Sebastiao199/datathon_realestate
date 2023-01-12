@@ -106,7 +106,7 @@ with tab1:
  
     col1,col2 = st.columns(2)
     with col1:
-        st.markdown("**Map of the Average Area**")
+        st.markdown("**Which departement has the biggest/smallest Surface Area?**")
         st.image(image_map_area)
     with col2:
         st.empty()
