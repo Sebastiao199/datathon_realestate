@@ -8,11 +8,28 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor
+import geopandas as gpd
+import pandas as pd
+import matplotlib.pyplot as plt
+import mapclassify
+#import plotly.express as px
+
 
 df_2022_ml = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/df_2022_ml_st.csv')
 
 image_house = Image.open('house_apt_picto.png')
-image_house = image_house.resize((100, 80))
+image_house = image_house.resize((90, 80))
+
+
+image_geo = Image.open('geo.png')
+image_geo = image_geo.resize((90, 80))
+
+image_sur = Image.open('surface.png')
+image_sur = image_sur.resize((90, 80))
+
+image_rooms = Image.open('rooms.png')
+image_rooms = image_rooms.resize((90, 80))
+
 ##ML alg
 
 X = df_2022_ml[['Actual_built_surface','Nb_of_main_rooms','Apartment','House','75 - Paris','77 - Seine-et-Marne','78 - Yvelines', "91 - l'Essonne", '92 - Hauts-de-Seine','93 - Seine-Saint-Denis', '94 - Val-de-Marne', "95 - Val-d'Oise"]]
@@ -27,8 +44,7 @@ X_train_scaled = scaler.transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 
-dtr = DecisionTreeRegressor(random_state= 39, min_samples_split = 7, min_samples_leaf= 46, max_depth = 12)
-dtr.fit(X_train_scaled, y_train)
+dtr = DecisionTreeRegressor(random_state= 39, min_samples_split = 7, min_samples_leaf= 46, max_depth = 12).fit(X_train_scaled, y_train)
 
 y_pred = dtr.predict(X_test_scaled)
 
@@ -38,7 +54,15 @@ y_pred = dtr.predict(X_test_scaled)
 tab1, tab2 = st.tabs(["Dashboard", "Machine Learning"])
 
 with tab1:
-    st.title('The unicorns of the world')
+    st.title('Île de France place finder')
+    
+    
+    
+    
+    
+    
+    
+    
 
     
 with tab2:
@@ -47,18 +71,20 @@ with tab2:
     col1,col2 = st.columns(2)
     with col1:
         ### Insert Filter 
-        #ChooseDep1 = st.selectbox('Choose your department:', df_2022_ml['Country'].unique(), 1)
-        ChooseDep1 = st.radio("Which department do you want:",('75 - Paris','77 - Seine-et-Marne','78 - Yvelines',"91 - l'Essonne",'92 - Hauts-de-Seine','93 - Seine-Saint-Denis',
+        st.image(image_geo)
+        ChooseDep1 = st.radio("Choose the department you want:",('75 - Paris','77 - Seine-et-Marne','78 - Yvelines',"91 - l'Essonne",'92 - Hauts-de-Seine','93 - Seine-Saint-Denis',
                                                                     '94 - Val-de-Marne', "95 - Val-d'Oise"))
     with col2:
         st.image(image_house)
-        ChooseType1 = st.radio("Which type of place do you want:",('Appartment','House'))
+        ChooseType1 = st.radio("Choose type of place you want:",('Appartment','House'))
         
     col1,col2 = st.columns(2)
     with col1:
-        Actual_built_surface = st.number_input('Choose a surface area')
+        st.image(image_sur)
+        Actual_built_surface = st.number_input('Choose a surface area:')
     with col2:
-        Nb_of_main_rooms = st.number_input('Choose the number of main rooms')
+        st.image(image_rooms)
+        Nb_of_main_rooms = st.number_input('Choose the number of main rooms:')
         
         
         Paris_75 = int(ChooseDep1=='75 - Paris')
@@ -76,7 +102,9 @@ with tab2:
         X_list = list([Paris_75,Seine_et_Marne_77,Yvelines_78,Essonne_91,Hauts_de_Seine_92,Seine_Saint_Denis_93,Val_de_Marne_94,Val_dOise_95, Apartment,
                        House,Actual_built_surface, Nb_of_main_rooms])
 
-        newhouse_prediction = dtr.predict(np.array(X_list).reshape(1,-1))
-        #newhouse_prediction = newhouse_prediction.style.format({'newhouse_prediction': ':.0f'})
-    with col2:
-        st.write(f"This is the predicted price {newhouse_prediction}") 
+        newhouse_prediction = dtr.predict(np.array(X_list).reshape(1,-1)).astype(int)
+        
+    if st.button('Click to see the price'):
+        st.subheader('The price is:')
+        st.subheader(["{:,}".format(x) for x in newhouse_prediction])
+        #st.write(f"This is the predicted price {newhouse_prediction}") 
