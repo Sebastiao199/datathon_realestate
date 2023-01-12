@@ -37,16 +37,16 @@ image_trans_depart = image_trans_depart.resize((400, 400))
 # Machine Learning
 
 
-image_house = Image.open('house_apt_picto.png')
-image_house = image_house.resize((90, 80))
+image_house = Image.open('Images/house.png')
+image_house = image_house.resize((50, 50))
 
-image_geo = Image.open('geo.png')
+image_geo = Image.open('Images/geo.png')
 image_geo = image_geo.resize((90, 80))
 
-image_sur = Image.open('surface.png')
+image_sur = Image.open('Images/surface.png')
 image_sur = image_sur.resize((90, 80))
 
-image_rooms = Image.open('rooms.png')
+image_rooms = Image.open('Images/map.png')
 image_rooms = image_rooms.resize((90, 80))
 
 ##ML alg
