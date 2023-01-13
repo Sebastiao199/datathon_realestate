@@ -23,7 +23,7 @@ More information below
 
 # Pre-processing & Cleaning explanation
 Not a lot of cleaning to do, but there were some duplicates in the datasets and missing values for 2022. 
-In the beggining we visualized some observations and insights on the dataframes we used with the library pandas-profiling, more specifically ProfileReport.
+In the beggining we visualized some observations and insights on the dataframes with the library pandas-profiling, more specifically ProfileReport.
 
 # Maps Creation
 We used the GeoPandas library to make the maps, since we had a .geojson file with the France departments.
