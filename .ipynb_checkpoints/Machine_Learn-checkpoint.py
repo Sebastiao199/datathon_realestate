@@ -17,35 +17,38 @@ import mapclassify
 final_geo = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/final_geo.csv')
 df_2022_ml = pd.read_csv('https://raw.githubusercontent.com/Sebastiao199/datathon_realestate/main/df_2022_ml_st.csv')
 
-# Dashboard
+st.set_page_config(layout="wide")
 
+# Dashboard
 
 image_map_area = Image.open('Images/area_mean_map.png')
 image_map_area = image_map_area.resize((400, 400))
 
-image_map_value = Image.open('Images/value_mean_map.png')
-image_map_value = image_map_value.resize((400, 400))
+image_map_value2014 = Image.open('Images/value_2014_map.png')
+image_map_value2014 = image_map_value2014.resize((400, 400))
+
+image_map_value2022 = Image.open('Images/value_2022_map.png')
+image_map_value2022 = image_map_value2022.resize((400, 400))
 
 image_evolution_price = Image.open('Images/evolution_price.png')
-image_evolution_price = image_evolution_price.resize((400, 400))
+image_evolution_price = image_evolution_price.resize((500, 400))
 
 image_trans_depart = Image.open('Images/trans_depart.png')
-image_trans_depart = image_trans_depart.resize((400, 400))
+image_trans_depart = image_trans_depart.resize((500, 400))
 
 
 # Machine Learning
 
+image_building = Image.open('Images/building.png')
+image_building = image_building.resize((90, 80))
 
-image_house = Image.open('house_apt_picto.png')
-image_house = image_house.resize((90, 80))
-
-image_geo = Image.open('geo.png')
+image_geo = Image.open('Images/map.png')
 image_geo = image_geo.resize((90, 80))
 
-image_sur = Image.open('surface.png')
+image_sur = Image.open('Images/surface.png')
 image_sur = image_sur.resize((90, 80))
 
-image_rooms = Image.open('rooms.png')
+image_rooms = Image.open('Images/nb_rooms.png')
 image_rooms = image_rooms.resize((90, 80))
 
 ##ML alg
@@ -78,22 +81,35 @@ y_pred_test = dtr.predict(X_test_sca)
 tab1, tab2 = st.tabs(["Dashboard", "Machine Learning"])
 
 with tab1:
-    #st.title("")
+    st.title("Insights on the real estate market in Ile-de-France")
+    st.subheader("*Difference between property values between 2014 and 2022*")    
+    
     col1,col2 = st.columns(2)
     with col1:
-        st.subheader("Map of the Average Area")
-        st.image(image_map_area)
+        st.markdown("**Map of the property value in 2014**")
+        st.image(image_map_value2014)
     with col2:
-        st.subheader("Map of the Average Value")
-        st.image(image_map_value)
+        st.markdown("**Map of the property value in 2022**")
+        st.image(image_map_value2022)        
+    
+
+    
+    st.subheader("*The impact of covid-19 on the real estate market in Ile-de-France*")    
+        
     col1,col2 = st.columns(2)
     with col1:
-        st.subheader("Evolution of price per square meter")
+        st.markdown("**Evolution of the price per square meter between 2014 and 2022**")
         st.image(image_evolution_price)
     with col2:
-        st.subheader("Transactions per year in each department")
+        st.markdown("**Evolution of the transactions per year by departments between 2014 and 2022**")
         st.image(image_trans_depart)
-    
+ 
+    col1,col2 = st.columns(2)
+    with col1:
+        st.markdown("**Which departement has the biggest/smallest Surface Area?**")
+        st.image(image_map_area)
+    with col2:
+        st.empty()
     
 with tab2:
     st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -105,7 +121,7 @@ with tab2:
         ChooseDep1 = st.radio("Choose the department you want:",('75 - Paris','77 - Seine-et-Marne','78 - Yvelines',"91 - l'Essonne",'92 - Hauts-de-Seine','93 - Seine-Saint-Denis',
                                                                     '94 - Val-de-Marne', "95 - Val-d'Oise"))
     with col2:
-        st.image(image_house)
+        st.image(image_building)
         ChooseType1 = st.radio("Choose type of place you want:",('Appartment','House'))
         
     col1,col2 = st.columns(2)
@@ -145,10 +161,11 @@ with tab2:
 
 
         newhouse_prediction = dtr.predict(X_df).astype(int)
-        newhouse_prediction1 = np.array([newhouse_prediction])
+        newhouse_prediction = np.array([newhouse_prediction])[0]
+        newhouse_prediction = newhouse_prediction[0]
         
     if st.button('Click to see the price'):
         st.subheader('The price is:')
         #newhouse_prediction1
-        st.subheader(["{:,}".format(x) for x in newhouse_prediction])
+        st.subheader("{:,} Euros".format(newhouse_prediction))
         #st.write(f"This is the predicted price {newhouse_prediction}") 

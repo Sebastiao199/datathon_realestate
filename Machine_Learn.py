@@ -161,10 +161,11 @@ with tab2:
 
 
         newhouse_prediction = dtr.predict(X_df).astype(int)
-        newhouse_prediction = np.array([newhouse_prediction][0])
+        newhouse_prediction = np.array([newhouse_prediction])[0]
+        newhouse_prediction = newhouse_prediction[0]
         
     if st.button('Click to see the price'):
         st.subheader('The price is:')
         #newhouse_prediction1
-        st.subheader(["{:,}".format(x) for x in newhouse_prediction])
+        st.subheader("{:,} Euros".format(newhouse_prediction))
         #st.write(f"This is the predicted price {newhouse_prediction}") 
