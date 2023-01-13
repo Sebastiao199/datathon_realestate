@@ -33,9 +33,8 @@ image_map_value2022 = image_map_value2022.resize((400, 400))
 image_evolution_price = Image.open('Images/evolution_price.png')
 image_evolution_price = image_evolution_price.resize((500, 400))
 
-image_trans_depart = Image.open('Images/trans_depart.png')
+image_trans_depart = Image.open('Images/trans_depart_1.png')
 image_trans_depart = image_trans_depart.resize((500, 400))
-
 
 # Machine Learning
 
