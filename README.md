@@ -9,12 +9,12 @@ We decided to focus on the houses and apartments of the 8 departments in Ile-de-
 # Deliverables 
 1) Insights with plots and maps: 
 > Difference between property values between 2014 and 2022
--Map of the property value in 2014
--Map of the property value in 2022
+ - Map of the property value in 2014
+ - Map of the property value in 2022
 
 > The impact of covid-19 on the real estate market in Ile-de-France
--Evolution of the price per square meter between 2014 and 2022
--Evolution of the transactions per year by departments between 2014 and 2022
+ - Evolution of the price per square meter between 2014 and 2022
+ - Evolution of the transactions per year by departments between 2014 and 2022
 
 > Which departement has the biggest/smallest Surface area?
 
