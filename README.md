@@ -7,8 +7,7 @@ Link to the data: https://www.data.gouv.fr/fr/datasets/5c4ae55a634f4117716d5656/
 We decided to focus on the houses and apartments of the 8 departments in Ile-de-France ((Paris (75), Hauts-de-Seine (92), Seine-Saint-Denis (93), Val-de-Marne (94), Seine-et-Marne (77), Yvelines (78), Essonne (91), Val-d'Oise (95))
 
 # Deliverables 
-1) Insights with plots:
-- TO WRITE 
+1) Insights with plots and maps 
 
 2) A price prediction system using Maching learning:
 More information below
